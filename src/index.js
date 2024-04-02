@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", apiRouter);
 
 app.get("/ping", (req, res) => {
-  res.json({ message: "Problem Service Is Alive" });
+  return res.json({ message: "Problem Service Is Alive" });
 });
 
 app.listen(PORT, () => {
