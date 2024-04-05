@@ -1,29 +1,51 @@
 const { StatusCodes } = require("http-status-codes");
 const NotImplemented = require("../errors/notImplemented.error");
+const { ProblemService } = require("../services/index");
+const { ProblemRepository } = require("../repositories/index");
 
 function pingProblemController(req, res) {
   return res.json({ message: "Ping Problem Controller" });
 }
 
-function addProblem(req, res, next) {
+const problemService = new ProblemService(new ProblemRepository());
+
+async function addProblem(req, res, next) {
   try {
-    throw new NotImplemented("addProblem");
+    const newProblem = await problemService.createProblem(req.body);
+    return res.status(StatusCodes.CREATED).json({
+      success: true,
+      message: "Successfully Created A New Problem",
+      error: {},
+      data: newProblem,
+    });
   } catch (error) {
     next(error);
   }
 }
 
-function getProblem(req, res, next) {
+async function getProblem(req, res, next) {
   try {
-    throw new NotImplemented("getProblem");
+    const problem = await problemService.getProblem(req.params.id);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Successfully Fetched A Problem",
+      error: {},
+      data: problem,
+    });
   } catch (error) {
     next(error);
   }
 }
 
-function getProblems(req, res, next) {
+async function getProblems(req, res, next) {
   try {
-    throw new NotImplemented("getProblems");
+    const response = await problemService.getAllProblems();
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Successfully Fetched All Problems",
+      error: {},
+      data: response,
+    });
   } catch (error) {
     next(error);
   }
