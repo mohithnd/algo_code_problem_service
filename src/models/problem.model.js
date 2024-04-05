@@ -13,7 +13,7 @@ const problemSchema = new mongoose.Schema({
     type: String,
     enum: ["easy", "medium", "hard"],
     required: [true, "Difficulty Cannot Be Empty"],
-    default: easy,
+    default: "easy",
   },
   testcases: [
     {
