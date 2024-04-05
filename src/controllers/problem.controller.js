@@ -12,7 +12,7 @@ const problemService = new ProblemService(new ProblemRepository());
 async function addProblem(req, res, next) {
   try {
     const newProblem = await problemService.createProblem(req.body);
-    res.status(StatusCodes.CREATED).json({
+    return res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Successfully Created A New Problem",
       error: {},
@@ -31,9 +31,15 @@ function getProblem(req, res, next) {
   }
 }
 
-function getProblems(req, res, next) {
+async function getProblems(req, res, next) {
   try {
-    throw new NotImplemented("getProblems");
+    const response = await problemService.getAllProblems();
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "Successfully Fetched All Problems",
+      error: {},
+      data: response,
+    });
   } catch (error) {
     next(error);
   }
