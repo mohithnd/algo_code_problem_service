@@ -4,7 +4,7 @@ const { ProblemService } = require("../services/index");
 const { ProblemRepository } = require("../repositories/index");
 
 function pingProblemController(req, res) {
-  return res.json({ message: "Ping Problem Controller" });
+  return res.status(200).json({ message: "Ping Problem Controller" });
 }
 
 const problemService = new ProblemService(new ProblemRepository());
