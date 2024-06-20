@@ -8,7 +8,10 @@ class ProblemRepository {
       const problem = await Problem.create({
         title: problemData.title,
         description: problemData.description,
+        difficulty: problemData.difficulty ? problemData.difficulty : "easy",
         testcases: problemData.testcases ? problemData.testcases : [],
+        codeStubs: problemData.codeStubs ? problemData.codeStubs : [],
+        editorial: problemData.editorial ? problemData.editorial : "",
       });
       return problem;
     } catch (error) {
